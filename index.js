@@ -7,7 +7,7 @@ const server = express();
 server.use(express.json());
 
 const projects = [];
-var requisicoes = 0;
+var requestCounter = 0;
 
 
 function checkProjectIdIsInArray(req, res, next) {
@@ -27,8 +27,8 @@ function checkProjectIdIsInArray(req, res, next) {
 }
 
 server.use((req, res, next) =>{
-  requisicoes += 1;
-  console.log(`Requisições realizadas: ${requisicoes}`);
+  requestCounter++;
+  console.log(`Request Counter: ${requestCounter}`);
 
   return next();
 })
@@ -53,7 +53,6 @@ server.post('/projects', (req, res) => {
 
 server.put('/projects/:id', checkProjectIdIsInArray, (req, res) => {
 
-  let { id } = req.params;
   let { title } = req.body;
 
   req.project.title = title;
